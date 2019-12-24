@@ -1,0 +1,6 @@
+# copy this file to instance folder
+SQLALCHEMY_ECHO = False
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_DATABASE_URI = 'sqlite:///path/to/tsapp.sqlite'
+PAGINATION_PAGE_SIZE = 50
+PAGINATION_PAGE_ARGUMENT_NAME = 'page'

@@ -1,0 +1,4 @@
+include tsapp/schema.sql
+graft tsapp/static
+graft tsapp/templates
+global-exclude *.pyc
