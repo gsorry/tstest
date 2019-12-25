@@ -1,4 +1,9 @@
 import re
+import os
+import click
+from flask import current_app
+from flask.cli import with_appcontext
+from sqlalchemy import create_engine
 from marshmallow import fields
 from marshmallow import validate
 from flask_sqlalchemy import SQLAlchemy
@@ -56,3 +61,15 @@ class UserSchema(ma.Schema):
 
     class Meta:
         fields = ('id', 'email', 'fullname')
+
+
+@click.command('init-db')
+@with_appcontext
+def init_db_command():
+    with open(os.path.join(os.path.dirname(__file__), 'schema.sql'), 'rb') as f:
+        _schema_sql = f.read().decode('utf8')
+    with current_app.app_context():
+        engine = create_engine(current_app.config['SQLALCHEMY_DATABASE_URI'])
+        raw_connection = engine.raw_connection()
+        raw_connection.executescript(_schema_sql)
+    click.echo('Initialized the database.')

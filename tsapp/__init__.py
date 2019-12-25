@@ -1,5 +1,7 @@
 import os
 from flask import Flask
+from tsapp.models import db
+from tsapp.models import init_db_command
 
 
 def create_app(test_config=None):
@@ -8,8 +10,6 @@ def create_app(test_config=None):
         SQLALCHEMY_ECHO=True,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         SQLALCHEMY_DATABASE_URI='sqlite:///'+os.path.join(app.instance_path, 'tsapp.sqlite'),
-        PAGINATION_PAGE_SIZE=50,
-        PAGINATION_PAGE_ARGUMENT_NAME='page',
     )
 
     if test_config is None:
@@ -50,5 +50,9 @@ def create_app(test_config=None):
     def not_implemented(e):
         app.logger.exception(e)
         return 'Not Implemented', 501
+
+    db.init_app(app)
+
+    app.cli.add_command(init_db_command)
 
     return app
