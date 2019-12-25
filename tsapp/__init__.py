@@ -1,7 +1,9 @@
 import os
 from flask import Flask
+from flask import render_template
 from tsapp.models import db
 from tsapp.models import init_db_command
+from tsapp.resources import register_blueprints
 
 
 def create_app(test_config=None):
@@ -24,7 +26,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return 'tsapp', 200
+        return render_template('index.html')
 
     @app.errorhandler(400)
     def bad_request(e):
@@ -54,5 +56,7 @@ def create_app(test_config=None):
     db.init_app(app)
 
     app.cli.add_command(init_db_command)
+
+    register_blueprints(app)
 
     return app
