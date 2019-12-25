@@ -23,7 +23,8 @@ setup(
         'flask-marshmallow',
         'marshmallow-sqlalchemy',
         'psycopg2-binary',
-        'wtforms'
+        'wtforms',
+        'passlib'
     ],
     extras_require={
         "test": [

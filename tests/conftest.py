@@ -17,8 +17,6 @@ def app():
         'SQLALCHEMY_ECHO': True,
         'SQLALCHEMY_TRACK_MODIFICATIONS': False,
         'SQLALCHEMY_DATABASE_URI': 'sqlite:///' + db_path,
-        'PAGINATION_PAGE_SIZE': 4,
-        'PAGINATION_PAGE_ARGUMENT_NAME': 'page',
         'SERVER_NAME': 'localhost'
     })
 
