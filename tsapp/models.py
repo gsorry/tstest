@@ -57,7 +57,7 @@ class User(db.Model, ModelAddUpdateDelete):
 class UserSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
     email = fields.String(required=True, validate=validate.Email)
-    fullname = fields.Integer(required=True, validate=validate.Length(3))
+    fullname = fields.String(required=True, validate=validate.Length(3))
 
     class Meta:
         fields = ('id', 'email', 'fullname')

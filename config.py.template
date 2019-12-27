@@ -1,4 +1,7 @@
 # copy this file to instance folder
+SECRET_KEY='dev'
 SQLALCHEMY_ECHO = False
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_DATABASE_URI = 'sqlite:///path/to/tsapp.sqlite'
+SENDGRID_SENDER_EMAIL = 'sender@address'
+SENDGRID_API_KEY = 'secret key'

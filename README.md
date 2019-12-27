@@ -40,7 +40,26 @@ export FLASK_ENV=development
 flask init-db
 flask run
 ```
+
 Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in a browser.
+
+When Flask starts, it uses a local instance folder.
+You can find it at project root with `instance` name.
+
+Create the `config.py` file in the instance folder, which the factory will read from if it exists.
+
+`instance/config.py`:
+```python
+SECRET_KEY='dev'
+SQLALCHEMY_ECHO = True
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SENDGRID_SENDER_EMAIL = '<SENDER_EMAIL_ADDRESS>'
+SENDGRID_API_KEY = '<GENERATED_API_KEY>'
+```
+
+In order for the application to be able to send email messages,
+it is necessary to create a [Sendgrid](https://signup.sendgrid.com) account and set up an API Key.
+Enter the API Key in the configuration. Restart application.
 
 ## Test
 
@@ -77,7 +96,7 @@ Copy this file to another machine,
 [set up a new virtualenv](https://flask.palletsprojects.com/en/1.1.x/installation/#install-create-env),
 then install the file with pip:
 ```shell script
-pip3 install tsapp-1.0.0-py2.py3-none-any.whl
+pip3 install --upgrade tsapp-1.0.0-py2.py3-none-any.whl
 ```
 
 Pip will install your project along with its dependencies.
@@ -89,9 +108,18 @@ You can find it at `venv/var/flaskr-instance` instead.
 Create the `config.py` file in the instance folder, which the factory will read from if it exists.
 
 `venv/var/tsapp-instance/config.py`:
+```python
+SECRET_KEY='<SOME_RANDOM_SECRET_KEY_STRING>'
+SQLALCHEMY_ECHO = False
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_DATABASE_URI = 'sqlite:///<PATH_TO_SQLITE_FILE>/tsapp.sqlite'
+SENDGRID_SENDER_EMAIL = '<SENDER_EMAIL_ADDRESS>'
+SENDGRID_API_KEY = '<GENERATED_API_KEY>'
 ```
-SECRET_KEY='<RANDOM_SECRET_KEY>',
-```
+
+In order for the application to be able to send email messages,
+it is necessary to create a [Sendgrid](https://signup.sendgrid.com) account and set up an API Key.
+Enter the API Key in the configuration.
 
 ## Run with a Production Server
 

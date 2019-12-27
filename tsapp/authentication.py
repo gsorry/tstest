@@ -1,24 +1,20 @@
-from flask import g
-from flask_httpauth import HTTPBasicAuth
+import functools
+from flask import session
+from flask import redirect
+from flask import url_for
 from flask_restful import Resource
-from tsapp.models import User
-
-auth = HTTPBasicAuth()
 
 
-@auth.verify_password
-def verify_email_password(email, password):
-    user = User.query.filter_by(email=email).first()
-    if not user or not user.verify_password(password):
-        return False
-    g.user = user
-    return True
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if 'user_id' not in session or session['user_id'] is None:
+            return redirect(url_for('auth.loginresource'))
 
+        return view(**kwargs)
 
-@auth.error_handler
-def unauthorized():
-    return 'Unauthorized Access', 401
+    return wrapped_view
 
 
 class AuthenticationRequiredResource(Resource):
-    method_decorators = [auth.login_required]
+    method_decorators = [login_required]

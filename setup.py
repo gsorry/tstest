@@ -24,7 +24,8 @@ setup(
         'marshmallow-sqlalchemy',
         'psycopg2-binary',
         'wtforms',
-        'passlib'
+        'passlib',
+        'sendgrid'
     ],
     extras_require={
         "test": [
